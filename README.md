@@ -3,8 +3,9 @@
 
 ## Ideas
 * Sports/eSports Tracking Website
-* Betting tips
-* 
+* Anti-procrastination application
+* Travelling Application
+* Finance Application / Crypto-tracker
 
 
 Trello:
