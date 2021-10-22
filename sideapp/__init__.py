@@ -15,6 +15,12 @@ def get_results():
 def get_specific_student(result_id):
     return f"This will be a page displaying information about a specific result {result_id}
 
+@app.route('/calc/<int:f_num>/<string:operator>/<int:s_num>/')
+def calc(f_num, operator, s_num):
+    if operator in ["+", "-", "*"]:
+        return f"{eval(f'{f_num}{operator}{s_num}')}"
+    return "Please enter a valid calculation"
+
 # Checking if this module is running 
 if __name__ == '__main__':
     app.run(debug=True)
