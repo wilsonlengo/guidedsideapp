@@ -9,10 +9,10 @@ class Matches(db.Model):
     def __init__(self, match_up):
         self.match_up = match_up
 
-    @property
-    def serialize(self): 
-        return {
-            "match_id": self.match_id,
-            "match_up": self.match_up
-        }
+    # @property
+    #def serialize(self): 
+    #    return {
+     #       "match_id": self.match_id,
+      #      "match_up": self.match_up
+       # }
 

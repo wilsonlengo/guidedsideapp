@@ -1,6 +1,7 @@
 import os
 
 # This sets up the init.py file
+# Defines 3 different types of configuration
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     
