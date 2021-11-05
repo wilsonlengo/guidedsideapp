@@ -16,7 +16,7 @@ def sign_up():
 @matches.route('/matchups/', methods=["GET"])
 def matchups():
     matches = Matches.query.all()
-    return jsonify(matches_scehma.dump(matches))
+    return jsonify(matches_schema.dump(matches))
 
 @matches.route('/matchups/', methods=["POST"])
 def create_matchup():
