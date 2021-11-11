@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h2>{{ page_data.match.match_up }}</h2>
+    <p>Match ID: {{ page_data.match.match_id }}</p>
+
+    <form action="/matchups/{{ page_data.match.match_id }}/", method="POST">
+        <input type="text" name="match_up" placeholder="Match Name..."/> 
+        <button>Update</button>
+    </form>
+
+    <br/><br/>
+    
+    <form action = "/matchups/{{ page_data.match.match_id }}/delete/", method="POST">
+        <button>DELETE MATCH</button>
+    </form>
+
+{% endblock %}

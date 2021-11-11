@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template, redirect, url_for
 from main import db
 from models.matches import Matches
 from schemas.match_schema import matches_schema, match_schema
@@ -7,7 +7,10 @@ matches = Blueprint('matches', __name__)
 
 @matches.route('/')
 def home_page():
-    return "Welcome to the Sports Tracker Homepage!"
+    data = {
+        "page_title": "Homepage"
+    }
+    return render_template("homepage.html", page_data=data)
 
 @matches.route('/signup/')
 def sign_up():
@@ -15,37 +18,49 @@ def sign_up():
 
 @matches.route('/matchups/', methods=["GET"])
 def matchups():
-    matches = Matches.query.all()
-    return jsonify(matches_schema.dump(matches))
+    data = {
+        "page_title": "Matches",
+        "matches": matches_schema.dump(Matches.query.all())
+    }
+    return render_template("matches.html", page_data=data)
 
 @matches.route('/matchups/', methods=["POST"])
 def create_matchup():
-    new_match = match_schema.load(request.json)
+    new_match = match_schema.load(request.form)
     db.session.add(new_match)
     db.session.commit()
-    return jsonify(match_schema.dump(new_match))
+    return redirect(url_for("matches.matchups"))
 
 @matches.route("/matchups/<int:id>/", methods = ["GET"])
 def get_matchup(id):
     match = Matches.query.get_or_404(id)
-    return jsonify(match_schema.dump(new_match))
+    data = {
+        "page_title": "Matchup Detail",
+        "match": match_schema.dump(match)
+    }
+    return render_template("matchup_detail.html", page_data=data)
 
-@matches.route("/matchups/<int:id>", methods=["PUT", "PATCH"])
+@matches.route("/matchups/<int:id>/", methods=["POST"])
 def update_matchup(id):
     match = Matches.query.filter_by(match_id=id)
-    updated_fields = match_schema.dump(request.json)
+
+    updated_fields = match_schema.dump(request.form)
     if updated_fields:
         match.update(updated_fields)
     #match.update(dict(match_up=request.json["match_up"]))
         db.session.commit()
-    return jsonify(match_schema.dump(match.first()))
+    data = {
+        "page_title": "Matchup Detail",
+        "match": match_schema.dump(match.first())
+    }
+    return render_template("matchup_detail.html", page_data=data)
 
-@matches.route("/matchups/<int:id>", methods=["DELETE"])
+@matches.route("/matchups/<int:id>/delete/", methods=["POST"])
 def delete_matchup(id):
     match = Matches.query.get_or_404(id)
     db.session.delete(match)
     db.session.commit()
-    return jsonfiy(match.schema.dump(match))
+    return redirect(url_for("matches.matchups"))
 
 @matches.route('/results/')
 def get_results():

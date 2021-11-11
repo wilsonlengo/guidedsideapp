@@ -1,0 +1,32 @@
+{% extends "base.html" %} 
+{% block content %}
+    <br/>
+    <div>
+        <h2>New Match</h2>
+        <div>
+            <form action="/matchups/" method="POST">
+                <input type="text" name="match_up" placeholder="Match Name..."/> 
+                <button>Create</button>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <h2>Match List</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>    
+                <th>Match Name</th>
+            </tr>
+        </thead>
+        {% for match in page_data.matches %}
+        <tbody>
+            <tr>
+                <td>
+                    <a href="/matchups/{{ match.match_id }}/">{{ match.match_up }}</a>
+                </br>
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}

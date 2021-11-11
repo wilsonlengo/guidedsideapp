@@ -21,5 +21,5 @@ class TestMatches(unittest.TestCase):
         self.assertIsInstance(data, list)
     
     def test_create_bad_match(self):
-        response = self.client.post("/matchups/", json={"match_up": ""})
+        response = self.client.post("/matchups/", data={"match_up": ""})
         self.assertEqual(response.status_code, 400)
