@@ -4,6 +4,7 @@ import os
 # Defines 3 different types of configuration
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     
     @property # <-- Attribute
     def SQLALCHEMY_DATABASE_URI(self):
