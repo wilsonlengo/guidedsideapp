@@ -16,14 +16,18 @@
         <thead>
             <tr>    
                 <th>Match Name</th>
+                <th>Match Description</th>
             </tr>
         </thead>
         {% for match in page_data.matches %}
         <tbody>
             <tr>
                 <td>
-                    <a href="/matchups/{{ match.match_id }}/">{{ match.match_up }}</a>
+                    <a href="/matchups/{{ match.match_id }}/">{{ match.match_up }}</a> 
                 </br>
+                </td>
+                <td>
+                    {{ match.description }}
                 </td>
             </tr>
         </tbody>

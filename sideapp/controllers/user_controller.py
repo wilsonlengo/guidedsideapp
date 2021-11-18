@@ -70,7 +70,7 @@ def user_detail():
     db.session.commit()
     return redirect(url_for("users.get_users"))
 
-@users.route("/users/logout/", methods=["POST"])
+@users.route("/users/logout/", methods=["GET", "POST"])
 @login_required
 def log_out():
     logout_user()
