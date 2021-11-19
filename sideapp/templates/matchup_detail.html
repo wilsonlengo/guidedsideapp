@@ -2,13 +2,24 @@
 {% block content %}
 
     <h2>{{ page_data.match.match_up }}</h2>
+    <img src="{{ page_data.image }}" style="wdith: 250px">
     <p>Match ID: {{ page_data.match.match_id }}</p>
     <p>Description: {{ page_data.match.description }}</p>
 
+    <br><br>
+
+    <h3>Update Matchup Info</h3>
     <form action="/matchups/{{ page_data.match.match_id }}/", method="POST">
         <input type="text" name="match_up" placeholder="Match Name..."/> 
         <input type="text" name="description" placeholder="Description...">
         <button>Update</button>
+    </form>
+
+    <br><br>
+    <h3>Update Image:</h3>
+    <form action="/matchups/{{ page_data.match.match_id }}/image/", method="POST" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <input type="submit">
     </form>
 
     <br/><br/>

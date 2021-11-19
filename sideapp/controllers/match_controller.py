@@ -1,7 +1,9 @@
-from flask import Blueprint, jsonify, request, render_template, redirect, url_for
+from flask import Blueprint, jsonify, request, render_template, redirect, url_for, abort, current_app
 from main import db
 from models.matches import Matches
 from schemas.match_schema import matches_schema, match_schema
+from flask_login import login_required, current_user
+import boto3
 
 matches = Blueprint('matches', __name__)
 
@@ -34,9 +36,23 @@ def create_matchup():
 @matches.route("/matchups/<int:id>/", methods = ["GET"])
 def get_matchup(id):
     match = Matches.query.get_or_404(id)
+
+    s3_client=boto3.client("s3")
+    bucket_name=current_app.config["AWS_S3_BUCKET"]
+    image_url = s3_client.generate_presigned_url(
+        'get_object',
+        Params={
+            "Bucket": bucket_name,
+            "Key": match.image_filename
+        },
+        ExpiresIn=100
+    )
+
     data = {
         "page_title": "Matchup Detail",
-        "match": match_schema.dump(match)
+        "match": match_schema.dump(match),
+        "image": image_url
+        
     }
     return render_template("matchup_detail.html", page_data=data)
 

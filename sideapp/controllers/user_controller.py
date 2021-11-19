@@ -14,7 +14,7 @@ def unauthorized():
     return redirect('/users/login/')
 
 
-users = Blueprint('users', __name__)
+users = Blueprint("users", __name__)
 
 # The GET routes endpoint
 @users.route("/users/", methods=["GET"]) 

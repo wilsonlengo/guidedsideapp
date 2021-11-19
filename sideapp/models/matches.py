@@ -7,6 +7,10 @@ class Matches(db.Model):
     match_up = db.Column(db.String(80), unique = True, nullable = False)
     description = db.Column(db.String(200), default="No Description Provided")
 
+    @property
+    def image_filename(self):
+        return f"match_images/{self.match_id}.png"
+
   #  def __init__(self, match_up):
      #   self.match_up = match_up
 
