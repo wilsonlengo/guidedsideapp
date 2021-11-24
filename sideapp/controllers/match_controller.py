@@ -39,7 +39,7 @@ def get_matchup(id):
 
     s3_client=boto3.client("s3")
     bucket_name=current_app.config["AWS_S3_BUCKET"]
-    image_url = s3_client.generate_presigned_url(
+    image_url=s3_client.generate_presigned_url(
         'get_object',
         Params={
             "Bucket": bucket_name,
